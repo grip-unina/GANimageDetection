@@ -1,6 +1,6 @@
 ---
 layout: paper
-paper: Are GAN generated images easy to detect? A critical analysis of the state-of-the-art
+paper: Are GAN generated images easy to detect?<br /> A critical analysis of the state-of-the-art
 github_url: https://github.com/grip-unina/GANimageDetection
 authors: 
   - name: Diego Gragnaniello
@@ -43,7 +43,7 @@ The advent of deep learning has brought a significant improvement in the quality
 
 ```js
 @inproceedings{Gragnaniello2021gan,
-  title={Are GAN generated images easy to detect?  A critical analysis of the state-of-the-art},
+  title={Are GAN generated images easy to detect? A critical analysis of the state-of-the-art},
   author={Gragnaniello, Diego and Cozzolino, Davide and Marra, Francesco and Poggi, Giovanni and Verdoliva, Luisa},
   booktitle={IEEE International Conference on Multimedia and Expo (ICME)},
   year={2021}
