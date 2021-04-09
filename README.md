@@ -6,7 +6,11 @@ Diego Gragnaniello, Davide Cozzolino, Francesco Marra, Giovanni Poggi and Luisa 
 <br />In IEEE International Conference on Multimedia and Expo (ICME), 2021.
 
 The very same architecture has been trained with images generated either by the Progressive Growing GAN or the StyleGAN2 architecture.
-<br />Download the trained weights from [here](http://www.grip.unina.it/download/GANdetection) and put in the folder *weights*.
+<br />To download the trained weights, run:
+```
+wget -e robots=off -nd -P ./weights -A .pth -r http://www.grip.unina.it/download/GANdetection
+```
+or manually download them from [here](http://www.grip.unina.it/download/GANdetection) and put them in the folder *weights*.
 
 ### Requirements
 - python>=3.6
