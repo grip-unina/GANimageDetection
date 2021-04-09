@@ -5,6 +5,9 @@ This repository contains the best GAN generated image detector, namely <*ResNet5
 Diego Gragnaniello, Davide Cozzolino, Francesco Marra, Giovanni Poggi and Luisa Verdoliva.
 <br />In IEEE International Conference on Multimedia and Expo (ICME), 2021.
 
+The very same architecture has been trained with images generated either by the Progressive Growing GAN or the StyleGAN2 architecture.
+<br />Download the trained weights from [here](https://www.grip.unina.it/download/GANdetection) and put in the folder *weights*.
+
 ### Requirements
 - python>=3.6
 - numpy>=1.19.4
