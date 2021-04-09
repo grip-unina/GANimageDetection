@@ -4,7 +4,7 @@ paper: Are GAN generated images easy to detect?<br /> A critical analysis of the
 github_url: https://github.com/grip-unina/GANimageDetection
 authors: 
   - name: Diego Gragnaniello
-    link: http://www.grip.unina.it/people/userprofile/poggi.html
+    link: http://www.grip.unina.it/people/userprofile/diego_gragnaniello.html
     index: 1
      
   - name: Davide Cozzolino
@@ -12,7 +12,7 @@ authors:
     index: 1
     
   - name: Francesco Marra
-    link: http://www.grip.unina.it/people/userprofile/poggi.html
+    link: http://www.grip.unina.it/people/userprofile/francesco_marra.html
     index: 1
     
   - name: Giovanni Poggi
@@ -38,6 +38,7 @@ The advent of deep learning has brought a significant improvement in the quality
 ### News
 
 *   2021-04-08: Paper available on Arxiv.
+*   2021-04-10: Best model available on GitHub.
 
 ### Bibtex
 
