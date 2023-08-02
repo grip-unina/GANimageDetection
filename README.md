@@ -8,9 +8,9 @@ Diego Gragnaniello, Davide Cozzolino, Francesco Marra, Giovanni Poggi and Luisa 
 The very same architecture has been trained with images generated either by the Progressive Growing GAN or the StyleGAN2 architecture.
 <br />To download the trained weights, run:
 ```
-wget -e robots=off -nd -P ./weights -A .pth -r http://www.grip.unina.it/download/GANdetection
+wget -e robots=off -nd -P ./weights -A .pth -r https://www.grip.unina.it/download/prog/GANdetection/weights
 ```
-or manually download them from [here](http://www.grip.unina.it/download/GANdetection) and put them in the folder *weights*.
+or manually download them from [here](https://www.grip.unina.it/download/prog/GANdetection) and put them in the folder *weights*.
 
 ### Requirements
 - python>=3.6
