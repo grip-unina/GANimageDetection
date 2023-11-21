@@ -2,3 +2,4 @@ numpy
 torch
 torchvision
 pillow
+psutil
