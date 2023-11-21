@@ -1,3 +1,11 @@
+"""
+This module is used for running inference on a single image using pre-trained
+models. It supports different models and applies necessary transformations to the
+input image before feeding it to the models for prediction.
+
+It prints out the logits returned by each model and the final label based on these logits.
+"""
+
 import os
 import time
 import argparse
@@ -5,15 +13,12 @@ import json
 import psutil
 import torch
 import numpy as np
-
 from PIL import Image
 from resnet50nodown import resnet50nodown
 
 
 def print_memory_usage():
-    """
-    Prints the current memory usage of the process.
-    """
+    """Prints the current memory usage of the process."""
     process = psutil.Process(os.getpid())
     mem_info = process.memory_info()
     print(f"Memory used: {mem_info.rss / (1024 * 1024):.2f} MB")
@@ -36,12 +41,14 @@ models_config = {
 
 
 def load_model(model_name, device):
+    """Loads the model from the config."""
     model_config = models_config[model_name]
     model = resnet50nodown(device, model_config["model_path"])
     return model
 
 
 def process_image(model, img):
+    """Passes the image through the model to get the logit."""
     return model.apply(img)
 
 
@@ -72,13 +79,15 @@ if __name__ == "__main__":
     from torch.cuda import is_available as is_available_cuda
 
     device = "cuda:0" if is_available_cuda() else "cpu"
+
     img = Image.open(image_path).convert("RGB")
     img.load()
 
     for model_name in models_config:
         if debug_mode:
             print_memory_usage()
-            print(f"Model {model_name} processed")
+
+        print(f"Model {model_name} processed")
 
         model = load_model(model_name, device)
         logit = process_image(model, img)
