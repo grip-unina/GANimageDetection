@@ -1,7 +1,11 @@
 import os
 import time
 import argparse
+import json
 import psutil
+import torch
+import numpy as np
+
 from PIL import Image
 from resnet50nodown import resnet50nodown
 
@@ -16,13 +20,30 @@ def print_memory_usage():
 
 
 models_config = {
-    "Grag2021_progan": {
+    "gandetection_resnet50nodown_progan": {
         "model_path": "./weights/gandetection_resnet50nodown_progan.pth",
         "arch": "res50stride1",
         "norm_type": "resnet",
         "patch_size": None,
-    }
+    },
+    "gandetection_resnet50nodown_stylegan2": {
+        "model_path": "./weights/gandetection_resnet50nodown_stylegan2.pth",
+        "arch": "res50stride1",
+        "norm_type": "resnet",
+        "patch_size": None,
+    },
 }
+
+
+def load_model(model_name, device):
+    model_config = models_config[model_name]
+    model = resnet50nodown(device, model_config["model_path"])
+    return model
+
+
+def process_image(model, img):
+    return model.apply(img)
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -45,27 +66,44 @@ if __name__ == "__main__":
     image_path = config.image_path
     debug_mode = config.debug
 
-    if debug_mode:
-        print_memory_usage()
+    start_time = time.time()
+    logits = {}
 
     from torch.cuda import is_available as is_available_cuda
 
     device = "cuda:0" if is_available_cuda() else "cpu"
-
-    net = resnet50nodown(device, models_config["Grag2021_progan"]["model_path"])
-
-    if debug_mode:
-        print_memory_usage()
-
-    print("GAN IMAGE DETECTION")
-    print("START")
-
-    tic = time.time()
     img = Image.open(image_path).convert("RGB")
     img.load()
-    logit = net.apply(img)
-    toc = time.time()
 
-    print(f"Image: {image_path}, Logit: {logit}, Time: {toc-tic:.2f}s")
+    for model_name in models_config:
+        if debug_mode:
+            print_memory_usage()
+            print(f"Model {model_name} processed")
 
-    print("\nDONE")
+        model = load_model(model_name, device)
+        logit = process_image(model, img)
+
+        logits[model_name] = logit.item() if isinstance(logit, np.ndarray) else logit
+
+        # Unload model from memory
+        del model
+        torch.cuda.empty_cache()
+
+        if debug_mode:
+            print_memory_usage()
+
+    execution_time = time.time() - start_time
+    
+    label = "True" if any(value < 0 for value in logits.values()) else "False"
+
+    # Construct output JSON
+    output = {
+        "product": "gan-model-detector",
+        "detection": {
+            "logit": logits,
+            "IsGANImage?": label,
+            "ExecutionTime": execution_time,
+        },
+    }
+
+    print(json.dumps(output, indent=4))
