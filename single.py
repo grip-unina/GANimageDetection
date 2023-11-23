@@ -81,7 +81,17 @@ def process_image(model, img):
     return model.apply(img)
 
 
-if __name__ == "__main__":
+def main():
+    """
+    The main function of the script. It parses command-line arguments and runs the inference test.
+
+    The function expects three command-line arguments:
+    - `--image_path`: The path to the image file on which inference is to be performed.
+    - `--debug`: Show memory usage or not
+
+    After parsing the arguments, it calls the `run_single_test` function to perform inference
+    on the specified image using the provided model weights.
+    """
     parser = argparse.ArgumentParser(
         description="This script tests the network on a single image."
     )
@@ -105,9 +115,7 @@ if __name__ == "__main__":
     start_time = time.time()
     logits = {}
 
-    from torch.cuda import is_available as is_available_cuda
-
-    device = "cuda:0" if is_available_cuda() else "cpu"
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
     processed_image_path = compress_and_resize_image(image_path)
     img = Image.open(processed_image_path).convert("RGB")
@@ -146,3 +154,6 @@ if __name__ == "__main__":
     }
 
     print(json.dumps(output, indent=4))
+
+if __name__ == "__main__":
+    main()
