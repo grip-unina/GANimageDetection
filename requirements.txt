@@ -1,0 +1,6 @@
+numpy
+torch
+torchvision
+pillow
+psutil
+numpy
