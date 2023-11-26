@@ -141,15 +141,15 @@ def main():
 
     execution_time = time.time() - start_time
 
-    label = "True" if any(value < 0 for value in logits.values()) else "False"
+    label = "False" if any(value < 0 for value in logits.values()) else "True"
 
     # Construct output JSON
     output = {
-        "product": "gan-model-detector",
-        "detection": {
-            "logit": logits,
-            "IsGANImage?": label,
-            "ExecutionTime": execution_time,
+        "model": "gan-model-detector",
+        "inferenceResults": {
+            "logits": logits,
+            "isGANImage": label,
+            "executionTime": execution_time,
         },
     }
 

@@ -1,5 +1,9 @@
 .env
 weights
-out.csv
 __pycache__
 .vscode
+*.jpg
+*.png
+*.jpeg
+*.webp
+.csv
